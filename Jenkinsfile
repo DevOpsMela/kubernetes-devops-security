@@ -30,6 +30,6 @@ pipeline {
                 sh 'docker push devopsmela/numeric-app:""$GIT_COMMIT""'
               }
             }
-            
-    }
+          }
+      }
 }
