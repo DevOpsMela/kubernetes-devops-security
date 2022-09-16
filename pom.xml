@@ -83,7 +83,7 @@
 			          <outputFormats>
 					  <outputFormat>XML</outputFormat>
 					  <outputFormat>HTML</outputFormat>
-			   </configuration>
+			     </configuration>
 			</plugin>	
 		</plugins>
 	</build>
