@@ -42,15 +42,15 @@ pipeline {
 //             }
 //         }
     
-          stage('SonarQube - SAST'){
-            steps{
-              withSonarQubeEnv('SonarQube') {
-                sh 'mvn sonar:sonar -Dsonar.projectKey-numeric-application -Dsonar.host.url=http://20.127.102.255:9000/'
+         stage('SonarQube - SAST') {
+               steps {
+                  withSonarQubeEnv('SonarQube') {
+                    sh 'mvn sonar:sonar -Dsonar.projectKey-numeric-application -Dsonar.host.url=http://20.127.102.255:9000/'
               } 
              }
-             timeout(time: 2, unit: 'MINUTES'){
-               script{
-               waitforQualityGate abortPipeline: true
+               timeout(time: 2, unit: 'MINUTES'){
+                 script {
+                   waitforQualityGate abortPipeline: true
             }
          }
       }
