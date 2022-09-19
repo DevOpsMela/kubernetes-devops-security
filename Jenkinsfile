@@ -33,7 +33,7 @@ pipeline {
             }
         }
     
-          stage('Build Artifact') {
+          stage('SonarQube Scan') {
             steps {
               sh "mvn clean verify sonar:sonar \
                  -Dsonar.projectKey=numeric-application \
