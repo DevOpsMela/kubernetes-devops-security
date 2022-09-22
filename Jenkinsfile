@@ -1,12 +1,12 @@
 pipeline {
   agent any
-	
+
   environment {
     deploymentName = "devsecops"
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
-    imageName = "devopsmela/numeric-app:${GIT_COMMIT}"
-    applicationURL="http://20.127.102.255"
+    imageName = "siddharth67/numeric-app:${GIT_COMMIT}"
+    applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com"
     applicationURI="/increment/99"
   }
 
@@ -124,4 +124,4 @@ pipeline {
          }
     }
 }
-}
+
