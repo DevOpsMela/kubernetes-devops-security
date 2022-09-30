@@ -114,7 +114,6 @@ pipeline {
       }
     }
 
-}
    stage('Prompte to PROD?') {
       steps {
         timeout(time: 2, unit: 'DAYS') {
@@ -141,7 +140,6 @@ pipeline {
         }
       }
     }
-}
 	
     post { 
             always {
