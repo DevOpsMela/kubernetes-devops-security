@@ -11,12 +11,12 @@ pipeline {
   }
 
   stages {
-//       stage('Build Artifact') {
-//             steps {
-//               sh "mvn clean package -DskipTests=true"
-//               archive 'target/*.jar' // Test Line
-//             }
-//         }
+      stage('Build Artifact') {
+            steps {
+              sh "mvn clean package -DskipTests=true"
+              archive 'target/*.jar' // Test Line
+            }
+        }
       
 //     stage('Unit Test Cases') {
 //             steps {
@@ -87,15 +87,15 @@ pipeline {
 //     }
 
       
-//     stage('Docker Build and Push') {
-//             steps {
-//               withDockerRegistry([credentialsId: "docker-hub", url: ""]){
-//                 sh 'printenv'
-//                 sh 'sudo docker build -t devopsmela/numeric-app:""$GIT_COMMIT"" .'
-//                 sh 'docker push devopsmela/numeric-app:""$GIT_COMMIT""'
-//               }
-//             }
-//           }
+    stage('Docker Build and Push') {
+            steps {
+              withDockerRegistry([credentialsId: "docker-hub", url: ""]){
+                sh 'printenv'
+                sh 'sudo docker build -t devopsmela/numeric-app:""$GIT_COMMIT"" .'
+                sh 'docker push devopsmela/numeric-app:""$GIT_COMMIT""'
+              }
+            }
+          }
     
 //     stage('K8S Deployment - DEV') {
 //       steps {
