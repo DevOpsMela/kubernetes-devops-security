@@ -15,7 +15,7 @@ cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
-KUBE_VERSION=1.20.0
+KUBE_VERSION=1.25.0
 apt-get update
 apt-get install -y kubelet=${KUBE_VERSION}-00 vim build-essential jq python3-pip docker.io kubectl=${KUBE_VERSION}-00 kubernetes-cni=0.8.7-00 kubeadm=${KUBE_VERSION}-00
 pip3 install jc
@@ -43,6 +43,7 @@ echo ".........----------------#################._.-.-KUBERNETES-.-._.##########
 rm /root/.kube/config
 kubeadm reset -f
 
+# In-case of containerd error run "rm /etc/containerd/config.toml;systemctl restart containerd"
 # uncomment below line if your host doesnt have minimum requirement of 2 CPU
 # kubeadm init --kubernetes-version=${KUBE_VERSION} --ignore-preflight-errors=NumCPU --skip-token-print
 kubeadm init --kubernetes-version=${KUBE_VERSION} --skip-token-print
@@ -50,18 +51,18 @@ kubeadm init --kubernetes-version=${KUBE_VERSION} --skip-token-print
 mkdir -p ~/.kube
 sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
 
 sleep 60
 
 echo "untaint controlplane node"
-kubectl taint node $(kubectl get nodes -o=jsonpath='{.items[].metadata.name}')  node-role.kubernetes.io/master-
+kubectl taint node $(kubectl get nodes -o=jsonpath='{.items[].metadata.name}') node-role.kubernetes.io/control-plane-
 kubectl get node -o wide
 
 
 
 echo ".........----------------#################._.-.-Java and MAVEN-.-._.#################----------------........."
-sudo apt install openjdk-8-jdk -y
+sudo apt install openjdk-11-jdk -y
 java -version
 sudo apt install -y maven
 mvn -v
